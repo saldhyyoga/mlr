@@ -1,0 +1,212 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Payment Gateway Jazaa",
+    "contact": {}
+  },
+  "host": "pg.jazaa.id:5000",
+  "basePath": "/",
+  "securityDefinitions": {
+    "Token": {
+      "type": "apiKey",
+      "description": "",
+      "name": "Token",
+      "in": "header"
+    }
+  },
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/methods": {
+      "get": {
+        "summary": "Get List Payment Method",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "GetListPaymentMethod",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/": {
+      "post": {
+        "description": "|  Parameter | Message  | Description  | Type  | Example  | \n|---|---|---|---|---|\n | **method_code** | Request | Kode method pembayaran yang akan digunakan, untuk mendapatkan list lengkapnya silahkan hit end point Get List Payment Mehod  | alphanumeric  | 451  |\n | **subscribe_id** | Request, Response | ID yang nantinya digunakan untuk create *bill_id* (virtual account). Param ini bisa diisi dengan ID Pelanggan atau No Handphone Pelanggan  | numeric  | 081123456789  |\n | **name** | Request, Response | Nama pelanggan  | alphanumeric  | John Doe  |\n | **amount** | Request, Response | Jumlah nominal bayar  | numeric  | 234000  |\n | **dt** | Request | Time Request  | numeric in YYYYMMDDHHmmss  | 20200707142900  |\n | **checksum** | Request | Output of SHA256(subscribe_id+amount+secretKey+dt)  | alphanumeric  | 482e88de3ec93fc4af3d8c70cb5fd6d4ba46daffa7b3c887c060e381b1710f19  |\n | info | Request, Response | List informasi pembayaran  | JSONArray of key and value  | [{\"key\": \"TAGIHAN\",\"value\": \"JULY 2020\"},{\"key\": \"DENDA\",\"value\": \"1000\"}]  |\n| ref_id | Response | Reference ID  | alphanumeric  | 451fcc3d-4dca-45c7-921e-660dd815e065  |\n| admin_fee | Response | Admin Fee  | numeric  | 3000  |\n| bill_id | Response | Billing ID / Virtual Account  | numeric  | 1234081123456789  |",
+        "summary": "Create Payment",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "CreatePayment",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreatePaymentRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/da4a128a-4578-4e41-929f-0948740b1b96": {
+      "delete": {
+        "summary": "Cancel Payment",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "CancelPayment",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/3da73821-5430-4632-a5a9-cdb45a5528dc": {
+      "get": {
+        "summary": "Get Status Payment",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "GetStatusPayment",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreatePaymentRequest": {
+      "title": "CreatePaymentRequest",
+      "example": {
+        "method_code": "link-aja",
+        "subscribe_id": "085295276665",
+        "name": "John",
+        "amount": 200000,
+        "info": [
+          {
+            "key": "TAGIHAN",
+            "value": "JULY 2020"
+          },
+          {
+            "key": "DENDA",
+            "value": "1000"
+          }
+        ],
+        "dt": "20200707142900",
+        "checksum": "e24e7fbee0147148cd8f437b197702d7b562bc4496537e92d48c01803acfa1a5"
+      },
+      "type": "object",
+      "properties": {
+        "method_code": {
+          "type": "string"
+        },
+        "subscribe_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "info": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Info"
+          }
+        },
+        "dt": {
+          "type": "string"
+        },
+        "checksum": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "method_code",
+        "subscribe_id",
+        "name",
+        "amount",
+        "info",
+        "dt",
+        "checksum"
+      ]
+    },
+    "Info": {
+      "title": "Info",
+      "example": {
+        "key": "TAGIHAN",
+        "value": "JULY 2020"
+      },
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    }
+  },
+  "security": [
+    {
+      "Token": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ]
+}

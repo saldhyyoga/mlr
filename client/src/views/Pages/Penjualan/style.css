@@ -1,0 +1,11 @@
+.dropdown-toggle::after {
+  display: none;
+}
+.modal-backdrop {
+  background-color: transparent;
+  border: none;
+}
+
+.MUIDataTable-responsiveStacked-8 {
+  margin-top: -10px !important;
+}
