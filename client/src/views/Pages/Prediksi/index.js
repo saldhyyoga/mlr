@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import axios from "axios";
 import { token, API_SERVER } from "../../../helper/variable";
+import { Link } from "react-router-dom";
 import {
   Button,
   Modal,
@@ -20,41 +21,41 @@ export default function Index() {
   const [modal, setModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [name, setName] = useState("");
+  const [detailData, setDetailData] = useState(0);
 
   useEffect(() => {
-    // axios
-    //   .get(`${API_SERVER}/products`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data.data);
-    //     setData(res.data.data);
-    //   })
-    //   .catch((err) => console.log(err));
+    axios
+      .get(`${API_SERVER}/prediksi`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        setData(res.data.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const toggle = () => setModal(!modal);
-  const toggleEdit = () => setModalEdit(!modalEdit);
 
-  const deleteData = (item) => {
+  const deleteData = () => {
     axios
-      .delete(`${API_SERVER}/delete-product/${item}`, {
+      .delete(`${API_SERVER}/prediksi/${detailData}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
         setModal(!modal);
-        if (res.data.data) {
-          toast.success("Delete Product Success", {
-            onClose: () => (window.location.href = "/product"),
+        if (res.data.data === 1) {
+          toast.success("Prediksi Berhasil Dihapus", {
+            onClose: () => (window.location.href = "/prediksi"),
             autoClose: 2000,
           });
         } else {
-          toast.error("Delete Product Failed", {
-            onClose: () => (window.location.href = "/operational"),
+          toast.error("Prediksi Gagal Dihapus", {
+            onClose: () => (window.location.href = "/prediksi"),
             autoClose: 2000,
           });
         }
@@ -62,44 +63,16 @@ export default function Index() {
       .catch((err) => console.log(err));
   };
 
-  const EditData = (item) => {
-    axios
-      .put(
-        `${API_SERVER}/update-product/${item}`,
-        {
-          name: name,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setModalEdit(!modalEdit);
-        if (res.data.data) {
-          toast.success("Update Product Success", {
-            onClose: () => (window.location.href = "/product"),
-            autoClose: 2000,
-          });
-        } else {
-          toast.error("Update Product Failed", {
-            onClose: () => (window.location.href = "/operational"),
-            autoClose: 2000,
-          });
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const modalDelete = (item) => {
+  const showModal = () => {
     return (
-      <>
+      <div>
         <Modal isOpen={modal} toggle={toggle}>
-          <ModalHeader toggle={toggle}>Delete Product</ModalHeader>
-          <ModalBody>Apakah anda yakin akan menghapus produk ini?</ModalBody>
+          <ModalHeader toggle={toggle}>Hapus Data Prediksi</ModalHeader>
+          <ModalBody>
+            Apakah anda yakin untuk menghapus data prediksi ?
+          </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={() => deleteData(item)}>
+            <Button onClick={deleteData} color="primary">
               Submit
             </Button>{" "}
             <Button color="secondary" onClick={toggle}>
@@ -107,34 +80,7 @@ export default function Index() {
             </Button>
           </ModalFooter>
         </Modal>
-      </>
-    );
-  };
-
-  const modalEditData = (item) => {
-    return (
-      <>
-        <Modal isOpen={modalEdit} toggle={toggleEdit}>
-          <ModalHeader toggle={toggleEdit}>Edit Product</ModalHeader>
-          <ModalBody>
-            <Col>
-              <Input
-                value={name}
-                type="text"
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Col>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={() => EditData(item)}>
-              Submit
-            </Button>{" "}
-            <Button color="secondary" onClick={toggleEdit}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </>
+      </div>
     );
   };
 
@@ -142,52 +88,51 @@ export default function Index() {
     if (data !== undefined || data !== null) {
       return data.map((item, index) => {
         return [
-          index,
-          item.name,
+          index + 1,
+          item.pred_m,
+          item.pred_y,
+          item.tahun,
           <>
-            <Button onClick={toggleEdit} key={index} size="md" color="success">
-              <i className="icon-pencil"></i>
-            </Button>
-            {modalEditData(item.id)}
+            <Link to={"/detail-prediksi/" + item.id}>
+              <Button color="primary" style={{ marginRight: 3 }}>
+                Details
+              </Button>
+            </Link>
             <Button
-              style={{ marginLeft: 2 }}
-              key={index}
-              size="md"
+              onClick={() => {
+                toggle();
+                setDetailData(item.id);
+              }}
               color="danger"
-              onClick={toggle}
             >
-              <i className="icon-trash"></i>
+              Delete
             </Button>
-            {modalDelete(item.id)}
+            {showModal()}
           </>,
         ];
       });
     }
   };
 
-  const colums = ["Number", "Name", "Action"];
+  const colums = [
+    "Index",
+    "Prediksi Perbulan",
+    "Prediksi Pertahun",
+    "Tahun Prediksi",
+    "Actions",
+  ];
   const options = {
     search: false,
     filterType: "dropdown",
     print: false,
     download: false,
     responsive: "scroll",
-    rowsPerPage: 15,
+    rowsPerPage: 10,
     selectableRows: false,
     rowsPerPageOptions: [10, 25, 50, 100],
     customToolbar: () => {
       return <CustomToolBar />;
     },
-    // customFooter: (rowsPerPage) => {
-    //   return(
-    //     <CustomFooter
-    //       page={page}
-    //       add={buttonAdd}
-    //       substract={buttonSubstract}
-    //       rowsPerPage={rowsPerPage}
-    //     />
-    //   )
-    // }
   };
 
   return (

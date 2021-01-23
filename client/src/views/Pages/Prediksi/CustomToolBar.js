@@ -27,9 +27,9 @@ const Example = (props) => {
 
   const submitData = () => {
     Axios.post(
-      `${API_SERVER}/add-product`,
+      `${API_SERVER}/regression`,
       {
-        name: pred,
+        year: year,
       },
       {
         headers: {
@@ -39,14 +39,21 @@ const Example = (props) => {
     )
       .then((res) => {
         setModal(!modal);
-        if (res.data.data) {
-          toast.success("Add Product Success", {
-            onClose: () => (window.location.href = "/product"),
+        if (res.data.data === "Success") {
+          toast.success("Prediksi Berhasil Ditambahkan", {
+            onClose: () => (window.location.href = "/prediksi"),
+            autoClose: 2000,
+          });
+        } else if (
+          res.data.messages === "Terdapat data penjualan yang belum lengkap"
+        ) {
+          toast.error("terdapat data penjualan yang belum lengkap", {
+            onClose: () => (window.location.href = "/prediksi"),
             autoClose: 2000,
           });
         } else {
           toast.error("Add Product Failed", {
-            onClose: () => (window.location.href = "/product"),
+            onClose: () => (window.location.href = "/prediksi"),
             autoClose: 2000,
           });
         }

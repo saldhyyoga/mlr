@@ -65,13 +65,21 @@ const CustomerCare = React.lazy(() =>
 const Product = React.lazy(() => import("./views/Pages/Product/index"));
 const Penjualan = React.lazy(() => import("./views/Pages/Penjualan/index"));
 const Prediksi = React.lazy(() => import("./views/Pages/Prediksi/index"));
+const DetailPrediksi = React.lazy(() =>
+  import("./views/Pages/Prediksi/DetailPrediksi")
+);
 
 const adminRoutes = [
   { path: "/", exact: true, name: "Home", component: Dashboard },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
-  { path: "/produk", name: "Product", component: Product },
+  { path: "/products", name: "Product", component: Product },
   { path: "/sales", name: "Penjualan", component: Penjualan },
   { path: "/prediksi", name: "Prediksi", component: Prediksi },
+  {
+    path: "/detail-prediksi/:id",
+    name: "Detail Prediksi",
+    component: DetailPrediksi,
+  },
 ];
 
 const managerRoutes = [

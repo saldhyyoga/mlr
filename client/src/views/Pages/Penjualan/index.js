@@ -290,7 +290,7 @@ export default function Index() {
     print: false,
     download: false,
     responsive: "scroll",
-    rowsPerPage: 15,
+    rowsPerPage: 100,
     selectableRows: false,
     rowsPerPageOptions: [10, 25, 50, 100],
     customToolbar: () => {

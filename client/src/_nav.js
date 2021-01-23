@@ -7,7 +7,7 @@ const admin = {
     },
     {
       name: "Product",
-      url: "/produk",
+      url: "/products",
       icon: "icon-diamond",
     },
     {
@@ -20,16 +20,16 @@ const admin = {
       url: "/prediksi",
       icon: "icon-graph",
     },
-    {
-      name: "Laporan Prediksi",
-      url: "/laporan-prediksi",
-      icon: "icon-chart",
-    },
-    {
-      name: "Akun",
-      url: "/accounts",
-      icon: "icon-people",
-    },
+    // {
+    //   name: "Laporan Prediksi",
+    //   url: "/laporan-prediksi",
+    //   icon: "icon-chart",
+    // },
+    // {
+    //   name: "Akun",
+    //   url: "/accounts",
+    //   icon: "icon-people",
+    // },
   ],
 };
 
