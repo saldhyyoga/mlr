@@ -49,7 +49,7 @@ function DefaultHeader(props) {
     if (decodedToken.group === 1) {
       return "admin";
     } else if (decodedToken.group === 2) {
-      return name;
+      return "Manager";
     } else if (decodedToken.group === 3) {
       return "operational";
     }
@@ -60,6 +60,7 @@ function DefaultHeader(props) {
     Cookies.remove("jztkn");
     Cookies.remove("code");
     Cookies.remove("name");
+    Cookies.remove("token");
     window.location.href = "/login";
   };
 

@@ -85,21 +85,12 @@ const adminRoutes = [
 const managerRoutes = [
   { path: "/", exact: true, name: "Home", component: Dashboard },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
-  { path: "/profile", name: "User Profile", component: Profile },
+  { path: "/prediksi", name: "Prediksi", component: Prediksi },
   {
-    path: "/transaction-list",
-    name: "Transaction",
-    component: MerchantTransaction,
+    path: "/detail-prediksi/:id",
+    name: "Detail Prediksi",
+    component: DetailPrediksi,
   },
-  { path: "/config-api", name: "Config API", component: ConfigAPIView },
-  { path: "/edit-config-api", name: "Edit Config API", component: ConfigAPI },
-  {
-    path: "/api-documentation",
-    name: "API Documentation",
-    component: ApiDocumentation,
-  },
-  // { path: '/test-debounce', name: 'Test Debounce', component: TestDebounce },
-  { path: "/customer-care", name: "Customer Care", component: CustomerCare },
 ];
 
 export { adminRoutes, managerRoutes };

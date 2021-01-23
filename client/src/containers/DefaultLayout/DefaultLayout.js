@@ -24,7 +24,7 @@ import { token } from "../../helper/variable";
 import jwt_decode from "jwt-decode";
 
 import { admin, manager } from "../../_nav";
-import { adminRoutes, merchantRoutes, operationalRoutes } from "../../routes";
+import { adminRoutes, managerRoutes } from "../../routes";
 import Page404 from "../../views/Pages/Page404/Page404";
 
 const DefaultAside = React.lazy(() => import("./DefaultAside"));
@@ -59,7 +59,7 @@ class DefaultLayout extends Component {
     }
     if (decodedToken.group === 2) {
       navigation = manager;
-      routes = manager;
+      routes = managerRoutes;
     }
     return (
       <div className="app" style={{ backgroundColor: "#e6e8ed" }}>

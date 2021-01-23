@@ -142,7 +142,7 @@ export default function Index() {
     if (data !== undefined || data !== null) {
       return data.map((item, index) => {
         return [
-          index,
+          index + 1,
           item.name,
           <>
             <Button onClick={toggleEdit} key={index} size="md" color="success">

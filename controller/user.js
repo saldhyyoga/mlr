@@ -28,6 +28,7 @@ exports.signin = async (req, res) => {
         response.error(`Password does'nt match`, res);
         return false;
       }
+      console.log(user);
 
       response.ok(
         {

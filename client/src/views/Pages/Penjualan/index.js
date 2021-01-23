@@ -257,7 +257,7 @@ export default function Index() {
     if (data !== undefined || data !== null) {
       return data.map((item, index) => {
         return [
-          index,
+          index + 1,
           showBulan(item.bulan),
           item.tahun,
           item.product.name,
