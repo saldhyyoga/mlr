@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ButtonDropdown,
   DropdownToggle,
@@ -15,12 +15,25 @@ import Axios from "axios";
 import { token, API_SERVER } from "../../../helper/variable";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const Example = (props) => {
   const [modal, setModal] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [pred, setPred] = useState(0);
-  const [year, setYear] = useState(0);
+  const [year, setYear] = useState([]);
+  const [yearPrediction, setYearPrediction] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get(`${API_SERVER}/year`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setYear(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   const toggle = () => setDropdownOpen(!dropdownOpen);
   const toggle2 = () => setModal(!modal);
@@ -29,7 +42,7 @@ const Example = (props) => {
     Axios.post(
       `${API_SERVER}/regression`,
       {
-        year: year,
+        year: yearPrediction,
       },
       {
         headers: {
@@ -61,6 +74,8 @@ const Example = (props) => {
       .catch((err) => console.log(err));
   };
 
+  console.log(pred);
+
   const showModal = () => {
     return (
       <>
@@ -74,26 +89,21 @@ const Example = (props) => {
                   value={pred}
                   onChange={(e) => {
                     setPred(e.target.value);
-                    setYear(parseInt(e.target.value) + 1);
+                    setYearPrediction(parseInt(e.target.value) + 1);
                   }}
                   type="select"
                 >
-                  <option value="2017">2017</option>
-                  <option value="2018">2018</option>
-                  <option value="2019">2019</option>
-                  <option value="2020">2020</option>
-                  <option value="2021">2021</option>
-                  <option value="2022">2022</option>
-                  <option value="2023">2023</option>
-                  <option value="2024">2024</option>
-                  <option value="2025">2025</option>
+                  <option>Pilih Tahun</option>
+                  {year.map((item) => {
+                    return <option value={item.tahun}>{item.tahun}</option>;
+                  })}
                 </Input>
               </Col>
             </div>
             <div style={{ marginTop: 10 }}>
               <Col>Prediksi Tahun</Col>
               <Col>
-                <Input disabled value={year} type="number" />
+                <Input disabled value={yearPrediction} type="number" />
               </Col>
             </div>
           </ModalBody>

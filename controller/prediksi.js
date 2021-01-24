@@ -108,3 +108,19 @@ exports.detail = async (req, res) => {
     response.error(`${error}`, res);
   }
 };
+
+exports.getYear = async (req, res) => {
+  try {
+    const year = await sequelize.query(
+      "SELECT DISTINCT tahun FROM penjualans",
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
+
+    return response.ok(year, res);
+  } catch (error) {
+    console.log(error);
+    response.error(`${error}`, res);
+  }
+};
