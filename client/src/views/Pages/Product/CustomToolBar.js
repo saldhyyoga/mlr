@@ -40,12 +40,12 @@ const Example = (props) => {
         setModal(!modal);
         if (res.data.data) {
           toast.success("Add Product Success", {
-            onClose: () => (window.location.href = "/product"),
+            onClose: () => (window.location.href = "/products"),
             autoClose: 2000,
           });
         } else {
           toast.error("Add Product Failed", {
-            onClose: () => (window.location.href = "/product"),
+            onClose: () => (window.location.href = "/products"),
             autoClose: 2000,
           });
         }

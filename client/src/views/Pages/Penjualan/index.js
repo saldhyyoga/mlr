@@ -14,6 +14,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CustomToolBar from "./CustomToolBar";
+import { Link } from "react-router-dom";
 
 export default function Index() {
   const [data, setData] = useState([]);
@@ -262,22 +263,11 @@ export default function Index() {
           item.tahun,
           item.product.name,
           item.jumlah,
-          <>
-            <Button onClick={toggleEdit} key={index} size="md" color="success">
-              <i className="icon-pencil"></i>
+          <Link to={`/detail-penjualan/${item.id}`}>
+            <Button size="md" color="success">
+              <i className="icon-pencil"></i> Edit
             </Button>
-            {modalEditData(item.id)}
-            <Button
-              style={{ marginLeft: 2 }}
-              key={index}
-              size="md"
-              color="danger"
-              onClick={toggle}
-            >
-              <i className="icon-trash"></i>
-            </Button>
-            {modalDelete(item.id)}
-          </>,
+          </Link>,
         ];
       });
     }

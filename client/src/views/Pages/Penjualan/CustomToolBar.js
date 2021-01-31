@@ -49,8 +49,14 @@ const Example = (props) => {
             onClose: () => (window.location.href = "/sales"),
             autoClose: 2000,
           });
-        } else {
-          toast.error("Add Product Failed", {
+        }else if (res.data.messages === "Data Penjualan Sudah Ada") {
+          toast.error("Data Penjualan Sudah Ada", {
+            onClose: () => (window.location.href = "/sales"),
+            autoClose: 2000,
+          });
+        }
+        else {
+          toast.error("Failed", {
             onClose: () => (window.location.href = "/sales"),
             autoClose: 2000,
           });

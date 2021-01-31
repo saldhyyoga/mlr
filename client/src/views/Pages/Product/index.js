@@ -79,7 +79,7 @@ export default function Index() {
         setModalEdit(!modalEdit);
         if (res.data.data) {
           toast.success("Update Product Success", {
-            onClose: () => (window.location.href = "/product"),
+            onClose: () => (window.location.href = "/products"),
             autoClose: 2000,
           });
         } else {
@@ -145,20 +145,22 @@ export default function Index() {
           index + 1,
           item.name,
           <>
-            <Button onClick={toggleEdit} key={index} size="md" color="success">
+            <Button onClick={() => {
+              toggleEdit();
+              setName(item.name)
+            }} size="md" color="success">
               <i className="icon-pencil"></i>
             </Button>
             {modalEditData(item.id)}
             <Button
               style={{ marginLeft: 2 }}
-              key={index}
               size="md"
               color="danger"
               onClick={toggle}
             >
               <i className="icon-trash"></i>
+              {modalDelete(item.id)}
             </Button>
-            {modalDelete(item.id)}
           </>,
         ];
       });

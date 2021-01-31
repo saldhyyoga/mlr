@@ -15,5 +15,6 @@ router.delete(
   middleware.admin,
   penjualanController.deletePenjualan
 );
+router.get("/detail-penjualan/:id", middleware.admin, penjualanController.detailPenjualan);
 
 module.exports = router;

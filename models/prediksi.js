@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     penjualan_id: DataTypes.INTEGER,
     pred_m: DataTypes.DECIMAL,
     pred_y: DataTypes.DECIMAL,
-    tahun: DataTypes.INTEGER
+    tahun: DataTypes.INTEGER,
+    jumlah_product: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'prediksi',

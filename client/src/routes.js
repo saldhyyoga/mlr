@@ -68,6 +68,7 @@ const Prediksi = React.lazy(() => import("./views/Pages/Prediksi/index"));
 const DetailPrediksi = React.lazy(() =>
   import("./views/Pages/Prediksi/DetailPrediksi")
 );
+const DetailPenjualan = React.lazy(() => import('./views/Pages/Penjualan/DetailPenjualan'));
 
 const adminRoutes = [
   { path: "/", exact: true, name: "Home", component: Dashboard },
@@ -80,6 +81,11 @@ const adminRoutes = [
     name: "Detail Prediksi",
     component: DetailPrediksi,
   },
+  {
+    path: "/detail-penjualan/:id",
+    name: "Detail Penjualan",
+    component: DetailPenjualan
+  }
 ];
 
 const managerRoutes = [

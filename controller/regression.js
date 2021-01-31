@@ -12,7 +12,8 @@ exports.read = async (req, res) => {
     );
     let productX = [];
     product.map((item) => productX.push(item.product_id));
-    console.log(productX);
+    console.log(productX.length);
+    console.log(product)
 
     const getAllProduct = await db.penjualan.findAll({
       where: {
@@ -248,6 +249,7 @@ exports.read = async (req, res) => {
         pred_m: pred_m,
         pred_y: resultfinal,
         tahun: req.body.year,
+        jumlah_product: 4
       });
 
       // response.ok(parseInt(resultfinal), res);
@@ -563,6 +565,7 @@ exports.read = async (req, res) => {
         pred_m: pred_m,
         pred_y: resultfinal,
         tahun: req.body.year,
+        jumlah_product: 5
       });
 
       return response.ok("Success", res);
@@ -1350,6 +1353,7 @@ exports.read = async (req, res) => {
         pred_m: pred_m,
         pred_y: resultfinal,
         tahun: req.body.year,
+        jumlah_product: 6
       });
 
       return response.ok("Success", res);
@@ -2514,6 +2518,7 @@ exports.read = async (req, res) => {
         pred_m: pred_m,
         pred_y: resultfinal,
         tahun: req.body.year,
+        jumlah_product: 7
       });
 
       return response.ok("Success", res);

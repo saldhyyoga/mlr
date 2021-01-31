@@ -43,7 +43,7 @@
     "jwt-decode": "^2.2.0",
     "material-table": "^1.65.0",
     "mobx": "^4.15.6",
-    "mui-datatables": "^2.15.0",
+    "mui-datatables": "^3.7.4",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
