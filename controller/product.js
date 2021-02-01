@@ -26,13 +26,26 @@ exports.addProduct = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
+    
+    const deletePenjualan = await db.penjualan.destroy({
+      where: {
+        product_id: id
+      }
+    })
+
+    const deletePrediksi = await db.prediksi.destroy({
+      truncate: true
+    })
+    
     const result = await db.product.destroy({
       where: {
         id: id,
       },
     });
 
-    return response.ok(result, res);
+    if(result){
+      return response.ok(result, res);
+    }
   } catch (error) {
     console.log(error);
     response.error(`${error}`, res);

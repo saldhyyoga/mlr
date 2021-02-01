@@ -84,13 +84,7 @@ export default function DetailPenjualan(props) {
               onClose: () => (window.location.href = "/sales"),
               autoClose: 2000,
             });
-          }else if (res.data.messages === "Data Penjualan Sudah Ada") {
-            toast.error("Data Penjualan Sudah Ada", {
-              onClose: () => (window.location.href = "/sales"),
-              autoClose: 2000,
-            });
-          }
-          else {
+          }else {
             toast.error("Delete Data Penjualan Failed", {
               onClose: () => (window.location.href = "/sales"),
               autoClose: 2000,

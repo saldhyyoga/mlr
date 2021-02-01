@@ -49,12 +49,12 @@ export default function Index() {
         setModal(!modal);
         if (res.data.data) {
           toast.success("Delete Product Success", {
-            onClose: () => (window.location.href = "/product"),
+            onClose: () => (window.location.href = "/products"),
             autoClose: 2000,
           });
         } else {
           toast.error("Delete Product Failed", {
-            onClose: () => (window.location.href = "/operational"),
+            onClose: () => (window.location.href = "/products"),
             autoClose: 2000,
           });
         }
@@ -84,7 +84,7 @@ export default function Index() {
           });
         } else {
           toast.error("Update Product Failed", {
-            onClose: () => (window.location.href = "/operational"),
+            onClose: () => (window.location.href = "/products"),
             autoClose: 2000,
           });
         }

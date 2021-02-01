@@ -34,10 +34,14 @@ exports.detail = async (req, res) => {
     const { id } = req.params;
     const result = await db.prediksi.findByPk(id);
 
+    const sumProduct = await db.prediksi.findByPk(id)
+    console.log(sumProduct.dataValues.jumlah_product);
+
     const product = await sequelize.query(
       "SELECT DISTINCT product_id FROM penjualans",
       { type: QueryTypes.SELECT }
     );
+    console.log(product.length)
     let productX = [];
     product.map((item) => productX.push(item.product_id));
     // console.log(productX);
@@ -77,9 +81,7 @@ exports.detail = async (req, res) => {
     }
 
     const productList = await db.product.findAll({
-      where: {
-        id: productX,
-      },
+      limit: sumProduct.dataValues.jumlah_product
     });
 
     const resultProduct = [];
