@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "skripsi_rifki",
+    "database": "skripsi_rifki2",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

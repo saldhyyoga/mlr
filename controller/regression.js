@@ -18,8 +18,11 @@ exports.read = async (req, res) => {
     const getAllProduct = await db.penjualan.findAll({
       where: {
         product_id: productX,
+        tahun: req.body.year
       },
     });
+
+    console.log(getAllProduct.length)
 
     if (productX.length === 4) {
       if (getAllProduct.length < 48) {
