@@ -18,7 +18,7 @@ exports.read = async (req, res) => {
     const getAllProduct = await db.penjualan.findAll({
       where: {
         product_id: productX,
-        tahun: req.body.year
+        tahun: req.body.year - 1
       },
     });
 
